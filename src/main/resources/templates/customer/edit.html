@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragment/master_page}">
+<html lang="en">
+<th:block layout:fragment="content">
+    <div class="alert alert-dismissible alert-primary">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Welcome</strong> <a href="#" class="alert-link">User</a>
+        <div>
+            <strong>Add a customer</strong>
+        </div>
+    </div>
+    <form id="newStudentForm" action="/edit" th:object="${customer}" method="post">
+        <input type="hidden" name="customerId" th:value="${customer.customerId}"/>
+        <div class="form-group col-md-6">
+            <label>Customer Number</label>
+            <input type="text" for="customerNumber" name="customerNumber" class="form-control"
+                   th:value="${customer.customerNumber}" id="customerId" placeholder="Customer Number">
+            <span th:if="${#fields.hasErrors('customerNumber')}" th:errors="*{customerNumber}"
+                  class="alert alert-danger"></span>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label>Fristname</label>
+                <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"
+                      class="alert alert-danger"></span>
+                <input type="text" name="firstName" class="form-control" id="firstName" th:value="${customer.firstName}"
+                       placeholder="Firstname">
+            </div>
+            <div class="form-group col-md-4">
+                <label>Middlename</label>
+                <span th:if="${#fields.hasErrors('middleName')}" th:errors="*{middleName}"
+                      class="alert alert-danger"></span>
+                <input type="text" name="middleName" class="form-control" th:value="${customer.middleName}"
+                       id="middleName" placeholder="Middlename">
+            </div>
+            <div class="form-group col-md-2">
+                <label>Lastname</label>
+                <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"
+                      class="alert alert-danger"></span>
+                <input type="text" name="lastName" class="form-control" id="lastName" th:value="${customer.lastName}"
+                       placeholder="Lastname">
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <label>Phone No.</label>
+            <span th:if="${#fields.hasErrors('contactPhoneNumber')}" th:errors="*{contactPhoneNumber}"
+                  class="alert alert-danger"></span>
+            <input type="text" name="contactPhoneNumber" class="form-control" id="contactPhoneNumber;"
+                   th:value="${customer.contactPhoneNumber}" placeholder="Phone Number">
+        </div>
+        <div class="form-group col-md-6">
+            <label>Date Of Birth</label>
+            <span th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}"
+                  class="alert alert-danger"></span>
+            <input type="date" name="dateOfBirth" class="form-control" id="dateOfBirth;"
+                   th:value="${customer.dateOfBirth}" placeholder="dateOfBirth">
+        </div>
+        <span th:value="${customer.getDateOfBirth()}"></span>
+        <div class="form-group">
+            <label>Email Address</label>
+            <span th:if="${#fields.hasErrors('emailAddress')}" th:errors="*{emailAddress}"
+                  class="alert alert-danger"></span>
+            <input type="text" name="emailAddress" class="form-control" id="emailAddress"
+                   th:value="${customer.emailAddress}" placeholder="example@domain.com">
+        </div>
+        <button type="submit" class="btn btn-primary">Update Customer</button>
+    </form>
+</th:block>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragment/master_page}">
+&nbsp;
+&nbsp;<th:block layout:fragment="content">
+    <h1>Add an account</h1>
+    <div>
+        &nbsp;
+    </div>
+    <form id="newAccountForm" th:action="@{/account/new}" th:object="${account}" method="post">
+        <div class="form-group col-md-2">
+            <label>Account Number</label>
+            <input type="text" th:field="*{accountNumber}" class="form-control" id="accountNumber">
+            <span th:if="${#fields.hasErrors('accountNumber')}" th:errors="*{accountNumber}"
+                  class="alert alert-danger"></span>
+        </div>
+        <p>Please select an existing customer</p>
+        <select th:field="*{customer}" class="m-b-10 form-control select2-hidden-accessible">
+            <option selected th:value="${''}" disabled>Please choose customer</option>
+            <option th:each="customer, iterStat : ${customers}"
+                    th:text="${customer.customerId + ', '+customer.firstName}" th:value="${customer.customerId}"></option>
+        </select>
+
+        <div>
+            &nbsp;
+        </div>
+        <p>Please select an Account type</p>
+        <select th:field="*{accountType}" class="m-b-10 form-control select2-hidden-accessible">
+            <option selected th:value="${''}" disabled>Open this select menu</option>
+            <option th:each="accountType, iterStat : ${accountTypes}"
+                    th:text="${accountType.accountTypeName}" th:value="${accountType.accountTypeId}"></option>
+        </select>
+        <div>
+            &nbsp;
+        </div>
+        <div class="form-group col-md-2">
+            <label for="balance">Balance</label>
+            <input type="text" class="form-control" id="Balance" th:field="*{balance}" placeholder="balance">
+        </div>
+        <button type="submit" class="btn btn-primary">Add Account</button>
+    </form>
+</th:block>
+</html>
